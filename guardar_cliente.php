@@ -2,19 +2,22 @@
 // Conexión a la base de datos
 $servername = "localhost";
 $dbname = "tiendajuguetes";
-
-$conn = new mysqli($servername, $dbname);
-
-// Verificar la conexión
-if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
-}
+$username = "";
+$password = "";
 
 // Recibir datos del formulario
 $nombre = $_POST['customerFirstName'];
 $apellido = $_POST['customerLastName'];
 $email = $_POST['customerEmail'];
 $telefono = $_POST['customerPhone'];
+
+// Crear conexión
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verificar la conexión
+if ($conn->connect_error) {
+    die("Conexión fallida: " . $conn->connect_error);
+}
 
 // Insertar datos en la tabla de clientes
 $sql = "INSERT INTO clientes (Nombre, Apellido, Correo_Electronico, Telefono)
