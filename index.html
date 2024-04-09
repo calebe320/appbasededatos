@@ -1,156 +1,177 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Gestión de Productos, Transacciones y Clientes</title>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    </head>
-    <body class="w3-light-grey">
-        <div class="w3-container w3-teal">
-            <h1>Gestión de Productos, Transacciones y Clientes</h1>
-        </div>
-    
-        <div class="w3-container">
-            <h2 class="w3-text-teal">Registro de Nuevo Producto</h2>
-            <form id="productForm" method="post" action="guardar_producto.php" class="w3-container w3-half">
-                <label class="w3-text-teal"><b>Nombre del Producto</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Nombre del Producto" name="productName" required>
-                
-                <label class="w3-text-teal"><b>Descripción del Producto</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Descripción del Producto" name="productDescription" required>
-                
-                <label class="w3-text-teal"><b>Precio de Venta</b></label>
-                <input class="w3-input w3-border" type="number" placeholder="Precio de Venta" name="productPrice" required>
-                
-                <label class="w3-text-teal"><b>Cantidad recibida del Proveedor</b></label>
-                <input class="w3-input w3-border" type="number" placeholder="Cantidad recibida del Proveedor" name="productQuantity" required>
-                
-                <label class="w3-text-teal"><b>Proveedor del Producto</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Proveedor del Producto" name="productSupplier" required>
-                
-                <button class="w3-btn w3-teal w3-margin-top" type="submit">Registrar Producto</button>
-            </form>
-        </div>
-    
-        <div class="w3-container">
-            <h2 class="w3-text-teal">Registro de Transacción</h2>
-            <form id="transactionForm" method="post" action="guardar_transaccion.php" class="w3-container w3-half">
-                <label class="w3-text-teal"><b>Productos vendidos en la transacción</b></label>
-                <!-- Aquí van los campos del formulario para registrar transacciones -->
-                <h3 class="w3-text-teal">Información del Producto</h3>
-                <div class="w3-container" id="products">
-                    <div class="w3-container" class="product">
-                        <label class="w3-text-teal" for="productName1">Producto:</label>
-                        <input class="w3-input w3-border" type="text" id="productName1" name="productName1" required>
-                        <label class="w3-text-teal" for="productQuantity1">Cantidad:</label>
-                        <input class="w3-input w3-border" type="number" id="productQuantity1" name="productQuantity1" required>
-                    </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Productos, Transacciones y Clientes</title>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-light-grey">
+    <div class="w3-container w3-teal">
+        <h1>Gestión de Productos, Transacciones y Clientes</h1>
+    </div>
+
+    <div class="w3-container">
+        <h2 class="w3-text-teal">Registro de Nuevo Producto</h2>
+        <form id="productForm" class="w3-container w3-half">
+            <label class="w3-text-teal"><b>Nombre del Producto</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Nombre del Producto" id="productName" required>
+            
+            <label class="w3-text-teal"><b>Descripción del Producto</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Descripción del Producto" id="productDescription" required>
+            
+            <label class="w3-text-teal"><b>Precio de Venta</b></label>
+            <input class="w3-input w3-border" type="number" placeholder="Precio de Venta" id="productPrice" required>
+            
+            <label class="w3-text-teal"><b>Cantidad recibida del Proveedor</b></label>
+            <input class="w3-input w3-border" type="number" placeholder="Cantidad recibida del Proveedor" id="productQuantity" required>
+            
+            <label class="w3-text-teal"><b>Proveedor del Producto</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Proveedor del Producto" id="productSupplier" required>
+            
+            <button class="w3-btn w3-teal w3-margin-top" type="button" onclick="registrarProducto()">Registrar Producto</button>
+        </form>
+    </div>
+
+    <div class="w3-container">
+        <h2 class="w3-text-teal">Registro de Transacción</h2>
+        <form id="transactionForm" class="w3-container w3-half">
+            <label class="w3-text-teal"><b>Productos vendidos en la transacción</b></label>
+            <!-- Aquí van los campos del formulario para registrar transacciones -->
+            <h3 class="w3-text-teal">Información del Producto</h3>
+            <div class="w3-container" id="products">
+                <div class="w3-container" class="product">
+                    <label class="w3-text-teal" for="productName1">Producto:</label>
+                    <input class="w3-input w3-border" type="text" id="productName1" name="productName1" required>
+                    <label class="w3-text-teal" for="productQuantity1">Cantidad:</label>
+                    <input class="w3-input w3-border" type="number" id="productQuantity1" name="productQuantity1" required>
                 </div>
-                <button class="w3-btn w3-teal w3-margin-top" type="button" type="submit" id="addProduct">Agregar Producto</button><br><br>
-                
-                <h3 class="w3-text-teal">Información del Cliente</h3>
-                <label class="w3-text-teal" for="customerName">Nombre del Cliente:</label>
-                <input class="w3-input w3-border" type="text" id="customerName" name="customerName" required><br><br>
-                <button class="w3-btn w3-teal w3-margin-top" type="submit">Registrar Transacción</button>
-            </form>
-        </div>
-    
-        <div class="w3-container">
-            <h2 class="w3-text-teal">Registro de Nuevo Cliente</h2>
-            <form id="customerForm" method="post" action="guardar_cliente.php" class="w3-container w3-half">
-                <label class="w3-text-teal"><b>Nombre del Cliente</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Nombre del Cliente" name="customerFirstName" required>
-                
-                <label class="w3-text-teal"><b>Apellido del Cliente</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Apellido del Cliente" name="customerLastName" required>
-                
-                <label class="w3-text-teal"><b>Dirección de Correo Electrónico</b></label>
-                <input class="w3-input w3-border" type="email" placeholder="Correo Electrónico" name="customerEmail" required>
-                
-                <label class="w3-text-teal"><b>Teléfono del Cliente</b></label>
-                <input class="w3-input w3-border" type="text" placeholder="Teléfono del Cliente" name="customerPhone" required>
-                
-                <button class="w3-btn w3-teal w3-margin-top" type="submit">Registrar Cliente</button>
-            </form>
-        </div>
-    
-        <div id="output" class="w3-container"></div>
+            </div>
+            <button class="w3-btn w3-teal w3-margin-top" type="button" type="submit" id="addProduct">Agregar Producto</button><br><br>
+            
+            <h3 class="w3-text-teal">Información del Cliente</h3>
+            <label class="w3-text-teal" for="customerName">Nombre del Cliente:</label>
+            <input class="w3-input w3-border" type="text" id="customerName" name="customerName" required><br><br>
+            <button class="w3-btn w3-teal w3-margin-top" type="button" onclick="registrarTransaccion()">Registrar Transacción</button>
+        </form>
+    </div>
 
-    <script>
-        document.getElementById("productForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-            var productName = document.getElementById("productName").value;
-            var productDescription = document.getElementById("productDescription").value;
-            var productPrice = document.getElementById("productPrice").value;
-            var productQuantity = document.getElementById("productQuantity").value;
-            var productSupplier = document.getElementById("productSupplier").value;
+    <div class="w3-container">
+        <h2 class="w3-text-teal">Registro de Nuevo Cliente</h2>
+        <form id="customerForm" class="w3-container w3-half">
+            <label class="w3-text-teal"><b>Nombre del Cliente</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Nombre del Cliente" id="customerFirstName" required>
+            
+            <label class="w3-text-teal"><b>Apellido del Cliente</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Apellido del Cliente" id="customerLastName" required>
+            
+            <label class="w3-text-teal"><b>Dirección de Correo Electrónico</b></label>
+            <input class="w3-input w3-border" type="email" placeholder="Correo Electrónico" id="customerEmail" required>
+            
+            <label class="w3-text-teal"><b>Teléfono del Cliente</b></label>
+            <input class="w3-input w3-border" type="text" placeholder="Teléfono del Cliente" id="customerPhone" required>
+            
+            <button class="w3-btn w3-teal w3-margin-top" type="button" onclick="registrarCliente()">Registrar Cliente</button>
+        </form>
+    </div>
 
+    <div id="output" class="w3-container"></div>
 
-            // Ejemplo de mostrar la información ingresada
+<script>
+    function registrarProducto() {
+        var productName = document.getElementById("productName").value;
+        var productDescription = document.getElementById("productDescription").value;
+        var productPrice = document.getElementById("productPrice").value;
+        var productQuantity = document.getElementById("productQuantity").value;
+        var productSupplier = document.getElementById("productSupplier").value;
+
+        var data = {
+            productName: productName,
+            productDescription: productDescription,
+            productPrice: productPrice,
+            productQuantity: productQuantity,
+            productSupplier: productSupplier
+        };
+
+        fetch('guardar_producto.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(data => {
             var outputDiv = document.getElementById("output");
-            outputDiv.innerHTML = "<h2>Información del Nuevo Producto Registrado:</h2>" +
-                                   "<p><strong>Nombre del Producto:</strong> " + productName + "</p>" +
-                                   "<p><strong>Descripción del Producto:</strong> " + productDescription + "</p>" +
-                                   "<p><strong>Precio de Venta:</strong> $" + productPrice + "</p>" +
-                                   "<p><strong>Cantidad recibida del proveedor:</strong> " + productQuantity + "</p>" +
-                                   "<p><strong>Proveedor del Producto:</strong> " + productSupplier + "</p>";
+            outputDiv.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+
+    function registrarTransaccion() {
+        var customerName = document.getElementById("customerName").value;
+
+        var products = [];
+        var productsInputs = document.querySelectorAll(".product");
+        productsInputs.forEach(function(productInput) {
+            var productName = productInput.querySelector("input[type='text']").value;
+            var productQuantity = productInput.querySelector("input[type='number']").value;
+            products.push({ name: productName, quantity: productQuantity });
         });
 
-        document.getElementById("addProduct").addEventListener("click", function() {
-            var productsDiv = document.getElementById("products");
-            var productCount = productsDiv.children.length + 1;
+        var data = {
+            customerName: customerName,
+            products: products
+        };
 
-            var newProductDiv = document.createElement("div");
-            newProductDiv.classList.add("product");
-
-            newProductDiv.innerHTML = "<label for='productName" + productCount + "'>Producto:</label>" +
-                                      "<input type='text' id='productName" + productCount + "' name='productName" + productCount + "' required>" +
-                                      "<label for='productQuantity" + productCount + "'>Cantidad:</label>" +
-                                      "<input type='number' id='productQuantity" + productCount + "' name='productQuantity" + productCount + "' required>";
-
-            productsDiv.appendChild(newProductDiv);
-        });
-
-        document.getElementById("transactionForm").addEventListener("submit", function(event) {
-            event.preventDefault();
-
-            var customerName = document.getElementById("customerName").value;
-
-            var products = [];
-            var productsInputs = document.querySelectorAll(".product");
-            productsInputs.forEach(function(productInput) {
-                var productName = productInput.querySelector("input[type='text']").value;
-                var productQuantity = productInput.querySelector("input[type='number']").value;
-                products.push({ name: productName, quantity: productQuantity });
-            });
-
-
-            // Ejemplo de mostrar la información ingresada
+        fetch('guardar_transaccion.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(data => {
             var outputDiv = document.getElementById("output");
-            outputDiv.innerHTML = "<h2>Información de la Transacción Registrada:</h2>" +
-                                   "<p><strong>Nombre del Cliente:</strong> " + customerName + "</p>" +
-                                   "<p><strong>Productos Vendidos:</strong></p>";
-            products.forEach(function(product) {
-                outputDiv.innerHTML += "<p>Producto: " + product.name + ", Cantidad: " + product.quantity + "</p>";
-            });
+            outputDiv.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
+    }
 
-        document.getElementById("customerForm").addEventListener("submit", function(event) {
-            event.preventDefault();
+    function registrarCliente() {
+        var customerFirstName = document.getElementById("customerFirstName").value;
+        var customerLastName = document.getElementById("customerLastName").value;
+        var customerEmail = document.getElementById("customerEmail").value;
+        var customerPhone = document.getElementById("customerPhone").value;
 
-            var customerFirstName = document.getElementById("customerFirstName").value;
-            var customerLastName = document.getElementById("customerLastName").value;
-            var customerEmail = document.getElementById("customerEmail").value;
-            var customerPhone = document.getElementById("customerPhone").value;
+        var data = {
+            customerFirstName: customerFirstName,
+            customerLastName: customerLastName,
+            customerEmail: customerEmail,
+            customerPhone: customerPhone
+        };
 
-            // Ejemplo de mostrar la información ingresada
+        fetch('guardar_cliente.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+        .then(response => response.text())
+        .then(data => {
             var outputDiv = document.getElementById("output");
-            outputDiv.innerHTML = "<h2>Información del Nuevo Cliente Registrado:</h2>" +
-                                   "<p><strong>Nombre del Cliente:</strong> " + customerFirstName + " " + customerLastName + "</p>" +
-                                   "<p><strong>Correo Electrónico:</strong> " + customerEmail + "</p>" +
-                                   "<p><strong>Teléfono:</strong> " + customerPhone + "</p>";
+            outputDiv.innerHTML = data;
+        })
+        .catch(error => {
+            console.error('Error:', error);
         });
-    </script>
+    }
+</script>
 </body>
 </html>
